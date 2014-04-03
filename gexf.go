@@ -87,9 +87,9 @@ func (g *Graph) SetNodeAttrs(attrs []Attr) error {
 	return nil
 }
 
-func (g *Graph) AddNode(id, label string, attr []AttrValue) {
+func (g *Graph) AddNode(label string, attr []AttrValue) string {
 	n := node{
-		ID:    id,
+		ID:    strconv.Itoa(len(g.Nodes)),
 		Label: label,
 	}
 
@@ -107,6 +107,7 @@ func (g *Graph) AddNode(id, label string, attr []AttrValue) {
 	}
 
 	g.Nodes = append(g.Nodes, n)
+	return n.ID
 }
 
 func (g *Graph) AddEdge(from, to string) {

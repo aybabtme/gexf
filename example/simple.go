@@ -13,7 +13,6 @@ var (
 		edges []string
 	}{
 		{
-			id:    "0",
 			label: "Hello",
 			attr: []gexf.AttrValue{
 				{Title: "foo", Value: true},
@@ -21,7 +20,7 @@ var (
 			edges: []string{"1"},
 		},
 
-		{id: "1", label: "Hello"},
+		{label: "Hello"},
 	}
 
 	attrs = []gexf.Attr{
@@ -37,9 +36,9 @@ func main() {
 	}
 
 	for _, node := range nodes {
-		g.AddNode(node.id, node.label, node.attr)
+		id := g.AddNode(node.label, node.attr)
 		for _, toID := range node.edges {
-			g.AddEdge(node.id, toID)
+			g.AddEdge(id, toID)
 		}
 	}
 
