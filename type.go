@@ -7,7 +7,7 @@ type GEXFType string
 const (
 	Long       GEXFType = "long"
 	Double     GEXFType = "double"
-	FLoat      GEXFType = "float"
+	Float      GEXFType = "float"
 	Boolean    GEXFType = "boolean"
 	ListString GEXFType = "liststring"
 	String     GEXFType = "string"
