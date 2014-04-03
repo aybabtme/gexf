@@ -54,6 +54,7 @@ type Graph struct {
 
 	attrCount     int
 	attrTitleToID map[string]string
+	featureToID   map[interface{}]string
 }
 
 func NewGraph() *Graph {
@@ -61,6 +62,7 @@ func NewGraph() *Graph {
 		Mode:          "static",
 		EdgeType:      "directed",
 		attrTitleToID: make(map[string]string),
+		featureToID:   make(map[interface{}]string),
 	}
 }
 
@@ -87,9 +89,9 @@ func (g *Graph) SetNodeAttrs(attrs []Attr) error {
 	return nil
 }
 
-func (g *Graph) AddNode(label string, attr []AttrValue) string {
+func (g *Graph) AddNode(id, label string, attr []AttrValue) {
 	n := node{
-		ID:    strconv.Itoa(len(g.Nodes)),
+		ID:    id,
 		Label: label,
 	}
 
@@ -107,7 +109,6 @@ func (g *Graph) AddNode(label string, attr []AttrValue) string {
 	}
 
 	g.Nodes = append(g.Nodes, n)
-	return n.ID
 }
 
 func (g *Graph) AddEdge(from, to string) {
@@ -117,4 +118,14 @@ func (g *Graph) AddEdge(from, to string) {
 		Target: to,
 	}
 	g.Edges = append(g.Edges, e)
+}
+
+func (g *Graph) GetID(feature interface{}) string {
+	if id, ok := g.featureToID[feature]; ok {
+		return id
+	}
+
+	newID := strconv.Itoa(len(g.featureToID))
+	g.featureToID[feature] = newID
+	return newID
 }
