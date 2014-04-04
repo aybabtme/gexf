@@ -7,7 +7,6 @@ import (
 
 var (
 	nodes = []struct {
-		id    string
 		label string
 		attr  []gexf.AttrValue
 		edges []string
@@ -36,9 +35,11 @@ func main() {
 	}
 
 	for _, node := range nodes {
-		id := g.AddNode(node.label, node.attr)
+		id := g.GetID(node.label)
+
+		g.AddNode(id, node.label, node.attr)
 		for _, toID := range node.edges {
-			g.AddEdge(id, toID)
+			g.AddEdge(id, g.GetID(toID))
 		}
 	}
 
