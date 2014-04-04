@@ -52,7 +52,6 @@ type Graph struct {
 	Nodes []node      `xml:"nodes>node"`
 	Edges []edge      `xml:"edges>edge"`
 
-	attrCount     int
 	attrTitleToID map[string]string
 	featureToID   map[interface{}]string
 }
